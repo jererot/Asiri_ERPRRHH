@@ -131,6 +131,7 @@ namespace common.Model.Validation
 
         public int? idZona { get; set; }
 
+        [Required]
         public int idTipoDocIdentidad { get; set; }
 
         public int? idDistrito { get; set; }

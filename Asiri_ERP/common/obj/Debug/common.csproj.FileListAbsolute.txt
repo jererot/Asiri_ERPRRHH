@@ -7,3 +7,13 @@ C:\Users\roy\Documents\Visual Studio 2015\Projects\Asiri_ERP\common\bin\Debug\En
 C:\Users\roy\Documents\Visual Studio 2015\Projects\Asiri_ERP\common\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\roy\Documents\Visual Studio 2015\Projects\Asiri_ERP\common\obj\Debug\common.dll
 C:\Users\roy\Documents\Visual Studio 2015\Projects\Asiri_ERP\common\obj\Debug\common.pdb
+C:\Users\roy\Documents\Visual Studio 2015\Projects\Asiri_ERPRRHH\Asiri_ERP\common\bin\Debug\common.dll.config
+C:\Users\roy\Documents\Visual Studio 2015\Projects\Asiri_ERPRRHH\Asiri_ERP\common\bin\Debug\common.dll
+C:\Users\roy\Documents\Visual Studio 2015\Projects\Asiri_ERPRRHH\Asiri_ERP\common\bin\Debug\common.pdb
+C:\Users\roy\Documents\Visual Studio 2015\Projects\Asiri_ERPRRHH\Asiri_ERP\common\bin\Debug\EntityFramework.dll
+C:\Users\roy\Documents\Visual Studio 2015\Projects\Asiri_ERPRRHH\Asiri_ERP\common\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\roy\Documents\Visual Studio 2015\Projects\Asiri_ERPRRHH\Asiri_ERP\common\bin\Debug\EntityFramework.xml
+C:\Users\roy\Documents\Visual Studio 2015\Projects\Asiri_ERPRRHH\Asiri_ERP\common\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\roy\Documents\Visual Studio 2015\Projects\Asiri_ERPRRHH\Asiri_ERP\common\obj\Debug\common.csprojResolveAssemblyReference.cache
+C:\Users\roy\Documents\Visual Studio 2015\Projects\Asiri_ERPRRHH\Asiri_ERP\common\obj\Debug\common.dll
+C:\Users\roy\Documents\Visual Studio 2015\Projects\Asiri_ERPRRHH\Asiri_ERP\common\obj\Debug\common.pdb
