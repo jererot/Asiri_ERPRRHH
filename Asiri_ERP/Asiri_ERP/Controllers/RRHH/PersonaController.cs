@@ -47,10 +47,12 @@ namespace Asiri_ERP.Controllers.RRHH
                 ViewBag.idEstadoCivil = new SelectList(db.RHUt05_estadoCivil, "idEstadoCivil", "descEstadoCivil");
                 //ViewBag.idTipoDocIdentidad = new SelectList(db.RHUt12_tipoDocIdentidad, "idTipoDocIdentidad", "descTipoDocIdentidad");
 
-                IList<SelectListItem> lstItems = new List<SelectListItem>();
-                lstItems.Add(new SelectListItem { Value = "1", Text = "Yes, I am a Human" });
-                lstItems.Add(new SelectListItem { Value = "2", Text = "No, I am a Robot" });
-                ViewData["idTipoDocIdentidad"] = lstItems;
+                //IList<SelectListItem> lstItems = new List<SelectListItem>();
+                //lstItems.Add(new SelectListItem { Value = "1", Text = "Yes, I am a Human" });
+                //lstItems.Add(new SelectListItem { Value = "2", Text = "No, I am a Robot" });
+
+                var idTipoDocIdentidad = new SelectList(db.RHUt12_tipoDocIdentidad, "idTipoDocIdentidad", "descTipoDocIdentidad");
+                ViewData["idTipoDocIdentidad"] = new SelectList(idTipoDocIdentidad, "Value", "Text");
 
                 //SELECT REGION
                 ViewBag.idRegion = new SelectList(db.UBIt03_region, "idRegion", "nombreRegion");
