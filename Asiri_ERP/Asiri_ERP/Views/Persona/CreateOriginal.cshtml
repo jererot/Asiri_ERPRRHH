@@ -1,0 +1,1337 @@
+﻿@model common.Model.RHUt09_persona
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="row">
+    <!--CODIGO MODIFICAR-->
+    <div class="col-lg-12">
+        <div class="card">
+            <!--*********************************************AQUÍ MODIFICAR CARD***************************-->
+            <h3 class="card-title"></h3>
+
+            <div class="" id="tabs">
+                <div class="wrapper">
+                    <div class="container">
+                        <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                            <!--TABS-->
+                            <ul id="myTab" class="nav nav-tabs nav-tabs-responsive" role="tablist">
+
+                                <li role="presentation" class="active">
+                                    <a href="#tab1" id="idTab1" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                                        <span class="text">Inf. Básica</span>
+                                    </a>
+                                </li>
+
+                                <li role="presentation" class="next">
+                                    <a href="#tab2" role="tab" id="idTab2" data-toggle="tab" aria-controls="profile">
+                                        <span class="text">Inf. Secundaria</span>
+                                    </a>
+                                </li>
+
+                                <li role="presentation">
+                                    <a href="#tab3" role="tab" id="idTab3" data-toggle="tab" aria-controls="samsa">
+                                        <span class="text">Inf. Paciente</span>
+                                    </a>
+                                </li>
+                            </ul>
+
+
+                            <div id="myTabContent" class="tab-content">
+                                <!--INFOBASICA-->
+                                <div role="tabpanel" class="tab-pane fade in active" id="tab1" aria-labelledby="home-tab">
+
+                                    @using (Html.BeginForm())
+                                    {
+                                        @Html.AntiForgeryToken()
+
+                                        <div class="form-horizontal">
+                                            <!---h4>RHUt09_persona</h4-->
+                                            <hr />
+
+
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <!-- **********PARTE 1******** -->
+                                                    <!---h3 class="card-title">*</!--h3-->
+                                                    <div class="card-body">
+
+                                                        @*VALIDAR**@
+                                                        <input type="text" id="validar" name="validar" value="@ViewBag.validar" style="display:none" />
+                                                        @*@Html.Label("Validar", (string)@ViewBag.Validar+"")*@
+                                                        <div class="form-group" style="display:none">
+                                                            <div class="col-md-8">
+                                                                @*@Html.EditorFor(model => model.idUsuario, new { htmlAttributes = new { @class = "form-control" , @value="1"} })*@
+                                                                <input type="text" value="1" id="idUsuario" name="idUsuario"/>
+                                                                @Html.ValidationMessageFor(model => model.idUsuario, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group" style="display:none">
+                                                            @Html.LabelFor(model => model.tipoPersoneria, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.tipoPersoneria, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.tipoPersoneria, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--NAME-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.nombrePersona, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.nombrePersona, new { htmlAttributes = new { @class = "form-control nombrePersona", @placeholder = "Ingrese nombre completo", @onpaste = "return false", @onkeyup = "return coverTexto(event, this.name)", onkeypress = "return soloLetras(event);", @id = "nombrePersona", @name = "nombrePersona", @title = "Se necesita Nombre" } })
+                                                                @Html.ValidationMessageFor(model => model.nombrePersona, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--SURNAME1-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.apellidoPaterno, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.apellidoPaterno, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Apellido Paterno", @onpaste = "return false", @onkeyup = "return coverTexto(event, this.name)", onkeypress = "return soloLetras(event);", @id = "apellidoPaterno", @name = "apellidoMaterno", @title = "Se necesita un Apellido Paterno" } })
+                                                                @Html.ValidationMessageFor(model => model.apellidoPaterno, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--SURNAME2-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.apellidoMaterno, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.apellidoMaterno, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Apellido Materno", @onpaste = "return false", @onkeyup = "return coverTexto(event, this.name)", onkeypress = "return soloLetras(event);", @id = "apellidoMaterno", @name = "apellidoMaterno", @title = "Se necesita un Apellido Materno" } })
+                                                                @Html.ValidationMessageFor(model => model.apellidoMaterno, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--DOC-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.idTipoDocIdentidad, "Tipo Documento:", htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.DropDownList("idTipoDocIdentidad", null as SelectList, "-- Seleccionar --", htmlAttributes: new { @class = "form-control", required = "required" })
+                                                                @Html.ValidationMessageFor(model => model.idTipoDocIdentidad, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--NUMBERDOC-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.numDocIdentidad, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-6">
+                                                                @Html.EditorFor(model => model.numDocIdentidad, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Ingrese N° de Documento", @disabled = "disabled", @onkeypress = "return solonumeros(event)", @onpaste = "return copyNumero(event)" } })
+                                                                @Html.ValidationMessageFor(model => model.numDocIdentidad, "", new { @class = "text-danger" })
+                                                            </div>
+                                                            <a id="btn_buscar" value="" class="btn btn-success icon-btn disabled">
+                                                                <i class="fa fa-fw fa-lg fa-search">
+                                                                </i>
+                                                            </a>&nbsp;&nbsp;&nbsp;
+                                                        </div>
+
+
+                                                        <!--REASONSOC-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.razonSocial, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.razonSocial, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese Razón Social " } })
+                                                                @Html.ValidationMessageFor(model => model.razonSocial, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--MARITALSTATUS-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.idEstadoCivil, "idEstadoCivil", htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.DropDownList("idEstadoCivil", null, htmlAttributes: new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.idEstadoCivil, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--ESTADO-->
+                                                        @*<div class="form-group">
+                                                                @Html.LabelFor(model => model.activo, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                                <div class="col-md-8">
+                                                                    <div class="checkbox">
+                                                                        @Html.EditorFor(model => model.activo)
+                                                                        @Html.ValidationMessageFor(model => model.activo, "", new { @class = "text-danger", Display="none" })
+                                                                    </div>
+                                                                </div>
+                                                            </div>*@
+                                                        <!--NUMBERTELF-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.numTelefonico01, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.numTelefonico01, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese N° de Teléfono/Celular", @onkeypress = "return solonumeros(event)", @onpaste = "return copyNumero(event)" } })
+                                                                @Html.ValidationMessageFor(model => model.numTelefonico01, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!--*************RECORD-2*************-->
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <!---h3 class="card-title">Básica 2</h3-->
+                                                    <div class="card-body">
+
+                                                        <!--DATEBIRTHDAY-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.fecNacimiento, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.fecNacimiento, new { htmlAttributes = new { @class = "form-control datetime ", @id = "fecNacimiento", @style = "z-index: 999", @type = "text", @placeholder = "Seleccione Fecha" } })
+                                                                @Html.ValidationMessageFor(model => model.fecNacimiento, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--DEPARTAMENTO-->
+                                                        <div class="form-group">
+                                                            @Html.Label("lblRegion", "Región:", htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.DropDownList("idRegion", ViewData["idRegion"] as List<SelectListItem>, "-- Seleccionar --", htmlAttributes: new { @class = "form-control", @name = "idRegion" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--PROVINCIA-->
+                                                        <div class="form-group">
+                                                            @Html.Label("lblProvincia", "Provincia :", htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.DropDownList("idProvincia", ViewData["idProvincia"] as List<SelectListItem>, "-- Seleccionar --", htmlAttributes: new { @class = "form-control", @disabled = "disabled", @name = "idProvincia" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--DISTRITO-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.idDistrito, "Distrito:", htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @*@Html.DropDownList("idDistrito", null as SelectList, "-- Seleccionar --", htmlAttributes: new { @class = "form-control", required = "required" })*@
+                                                                @Html.DropDownList("idDistrito", null as SelectList, "-- Seleccionar --", htmlAttributes: new { @class = "form-control", @disabled = "disabled", @name = "idDistrito" })
+                                                                @Html.ValidationMessageFor(model => model.idDistrito, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--GENRE-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.sexo, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                <!--Html.EditorFor(model => model.sexo, new { htmlAttributes = new { class = "form-control" } })-->
+                                                                @Html.DropDownList("sexo", new SelectList(new[] { "Hombre", "Mujer", "Otro", "Prefiero no decirlo" }) as SelectList, "-- Seleccionar --", htmlAttributes: new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.sexo, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--EMAIL-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.email01, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.email01, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese Email" } })
+                                                                @Html.ValidationMessageFor(model => model.email01, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--ADDRESS-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.direccion01, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.direccion01, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese Dirección" } })
+                                                                @Html.ValidationMessageFor(model => model.direccion01, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--PHOTO-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.pathFoto, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-4">
+                                                                <input id="pathFoto" disabled="disabled" class="form-control" />
+                                                                @*@Html.EditorFor(model => model.pathFoto, new { htmlAttributes = new { @class = "form-control", disabled= "disabled" } })*@
+                                                                @Html.ValidationMessageFor(model => model.pathFoto, "", new { @class = "text-danger" })
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <!---button class="btn-success viewModalPhoto" data-id="">Cargar</!--button-->
+                                                                <button id="viewModalPhoto" class="btn btn-success icon-btn viewModalPhoto" data-id="">
+                                                                    <i class="fa fa-fw fa-lg fa-image">
+                                                                    </i>Cargar
+                                                                </button>&nbsp;&nbsp;&nbsp;
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12" style="text-align: center;">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+
+                                                            <button id="btn_validar" type="submit" value="" class="btn btn-primary icon-btn">
+                                                                <i class="fa fa-fw fa-lg fa-check-circle">
+                                                                </i>Validar
+                                                            </button>&nbsp;&nbsp;&nbsp;
+
+                                                            @*<button id="btn_siguiente" value="" class="btn btn-primary icon-btn" style="display:none;" >
+                                                                    <i class="fa fa-fw fa-lg fa-check-circle">
+                                                                    </i>Siguiente
+                                                                </button>&nbsp;&nbsp;&nbsp;*@
+                                                            <a id="btn_siguiente" value="" class="btn btn-primary icon-btn">
+                                                                <i class="fa fa-fw fa-lg fa-check-circle">
+                                                                </i>Siguiente
+                                                            </a>&nbsp;&nbsp;&nbsp;
+
+                                                            <a class="btn btn-default icon-btn" href="#">
+                                                                <i class="fa fa-fw fa-lg fa-times-circle"></i>Cancelar
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                <!--INFBÁSICO2-->
+                                <div role="tabpanel" class="tab-pane fade" id="tab2" aria-labelledby="profile-tab">
+                                    <!--div>Info Básica 2</div-->
+                                    @using (Html.BeginForm())
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <div class="form-horizontal">
+
+                                            @*******FORM DISPLAY NONE******@
+                                            <style>
+                                                /*.Form2 {
+                                                    display: none;
+                                                }*/
+                                            </style>
+                                            <div class="col-md-6 Form2">
+                                                <div class="card">
+                                                    <!-- **********PARTE 1******** -->
+                                                    <!---h3 class="card-title">*</!--h3-->
+                                                    <div class="card-body">
+
+                                                        <input type="text" id="validar" name="validar" value="@ViewBag.validar" style="display:none" />
+
+                                                        <div class="form-group" style="display:none">
+                                                            <div class="col-md-8">
+                                                                <input type="text" value="" id="idUsuario2" name="idUsuario"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group" style="display:none">
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.tipoPersoneria, new { htmlAttributes = new { @class = "form-control" , @name="tipoPersoneria2" } })
+                                                                @*Html.ValidationMessageFor(model => model.tipoPersoneria, "", new { @class = "text-danger" })*@
+                                                            </div>
+                                                        </div>
+
+                                                        <!--NAME-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.nombrePersona, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.nombrePersona, new { htmlAttributes = new { @class = "form-control", @id = "nombrePersona2", @placeholder = "Ingrese nombre completo", @onpaste = "return false", @onkeyup = "return coverTexto(event, this.name)", onkeypress = "return soloLetras(event);", @name = "nombrePersona2", @title = "Se necesita Nombre" } })
+                                                                @Html.ValidationMessageFor(model => model.nombrePersona, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--SURNAME1-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.apellidoPaterno, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.apellidoPaterno, new { htmlAttributes = new { @class = "form-control", @id = "apellidoPaterno2", @placeholder = "Ingrese Apellido Paterno", @onpaste = "return false", @onkeyup = "return coverTexto(event, this.name)", onkeypress = "return soloLetras(event);", @name = "apellidoMaterno2", @title = "Se necesita un Apellido Paterno" } })
+                                                                @Html.ValidationMessageFor(model => model.apellidoPaterno, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--SURNAME2-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.apellidoMaterno, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.apellidoMaterno, new { htmlAttributes = new { @class = "form-control", @id = "apellidoMaterno2", @placeholder = "Ingrese Apellido Materno", @onpaste = "return false", @onkeyup = "return coverTexto(event, this.name)", onkeypress = "return soloLetras(event);", @name = "apellidoMaterno2", @title = "Se necesita un Apellido Materno" } })
+                                                                @Html.ValidationMessageFor(model => model.apellidoMaterno, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--DOC-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.idTipoDocIdentidad, "Tipo Documento:", htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.DropDownList("idTipoDocIdentidad", null as SelectList, "-- Seleccionar --", htmlAttributes: new { @class = "form-control", @id = "idTipoDocIdentidad2", required = "required" })
+                                                                @Html.ValidationMessageFor(model => model.idTipoDocIdentidad, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--NUMBERDOC-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.numDocIdentidad, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.numDocIdentidad, new { htmlAttributes = new { @class = "form-control", @id = "numDocIdentidad2", required = "required", placeholder = "Ingrese N° de Documento", @onkeypress = "return solonumeros(event)", @onpaste = "return copyNumero(event)" } })
+                                                                @Html.ValidationMessageFor(model => model.numDocIdentidad, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--REASONSOC-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.razonSocial, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.razonSocial, new { htmlAttributes = new { @class = "form-control", @id = "razonSocial2", placeholder = "Ingrese Razón Social " } })
+                                                                @Html.ValidationMessageFor(model => model.razonSocial, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--MARITALSTATUS-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.idEstadoCivil, "idEstadoCivil", htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.DropDownList("idEstadoCivil", null, htmlAttributes: new { @class = "form-control", @id = "idEstadoCivil2" })
+                                                                @Html.ValidationMessageFor(model => model.idEstadoCivil, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                        <!--NUMBERTELF-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.numTelefonico01, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.numTelefonico01, new { htmlAttributes = new { @class = "form-control", @id = "numTelefonico012", placeholder = "Ingrese N° de Teléfono/Celular", @onkeypress = "return solonumeros(event)", @onpaste = "return copyNumero(event)" } })
+                                                                @Html.ValidationMessageFor(model => model.numTelefonico01, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!--*************RECORD-2*************-->
+                                            <div class="col-md-6 Form2">
+                                                <div class="card">
+                                                    <!---h3 class="card-title">Básica 2</h3-->
+                                                    <div class="card-body">
+
+                                                        <!--DATEBIRTHDAY-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.fecNacimiento, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.fecNacimiento, new { htmlAttributes = new { @class = "form-control datetime ", @id = "fecNacimiento2", @style = "z-index: 999", @type = "text", @placeholder = "Seleccione Fecha" } })
+                                                                @Html.ValidationMessageFor(model => model.fecNacimiento, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--DEPARTAMENTO-->
+                                                        <div class="form-group">
+                                                            @Html.Label("lblRegion", "Región:", htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.DropDownList("idRegion", ViewData["idRegion"] as List<SelectListItem>, "-- Seleccionar --", htmlAttributes: new { @class = "form-control", @id = "idRegion2" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--PROVINCIA-->
+                                                        <div class="form-group">
+                                                            @Html.Label("lblProvincia", "Provincia :", htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.DropDownList("idProvincia", ViewData["idProvincia"] as List<SelectListItem>, "-- Seleccionar --", htmlAttributes: new { @class = "form-control", @id = "idProvincia2" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--DISTRITO-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.idDistrito, "Distrito:", htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @*@Html.DropDownList("idDistrito", null as SelectList, "-- Seleccionar --", htmlAttributes: new { @class = "form-control", required = "required" })*@
+                                                                @Html.DropDownList("idDistrito", null as SelectList, "-- Seleccionar --", htmlAttributes: new { @class = "form-control", @id = "idDistrito2" })
+                                                                @Html.ValidationMessageFor(model => model.idDistrito, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--GENRE-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.sexo, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                <!--Html.EditorFor(model => model.sexo, new { htmlAttributes = new { class = "form-control" } })-->
+                                                                @Html.DropDownList("sexo", new SelectList(new[] { "Hombre", "Mujer", "Otro", "Prefiero no decirlo" }) as SelectList, "-- Seleccionar --", htmlAttributes: new { @class = "form-control", @id = "sexo2" })
+                                                                @Html.ValidationMessageFor(model => model.sexo, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--EMAIL-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.email01, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.email01, new { htmlAttributes = new { @class = "form-control", @id = "email012", placeholder = "Ingrese Email" } })
+                                                                @Html.ValidationMessageFor(model => model.email01, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--ADDRESS-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.direccion01, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.direccion01, new { htmlAttributes = new { @class = "form-control", @id = "direccion012", placeholder = "Ingrese Dirección" } })
+                                                                @Html.ValidationMessageFor(model => model.direccion01, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--PHOTO-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.pathFoto, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-4">
+                                                                <input id="pathFoto2" disabled="disabled" class="form-control" />
+                                                                @*@Html.EditorFor(model => model.pathFoto, new { htmlAttributes = new { @class = "form-control", disabled= "disabled" } })*@
+                                                                @Html.ValidationMessageFor(model => model.pathFoto, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*******************************@
+                                            <hr />
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <!-- **********PARTE 1******** -->
+                                                    <!---h3 class="card-title">*</!--h3-->
+                                                    <div class="card-body">
+
+                                                        <!--EMAIL2-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.email02, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.email02, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese Email (opcional)" } })
+                                                                @Html.ValidationMessageFor(model => model.email02, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--PHONE2-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.numTelefonico02, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.numTelefonico02, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese N° de Teléfono/Celular (opcional)", @onkeypress = "return solonumeros(event)", @onpaste = "return copyNumero(event)" } })
+                                                                @Html.ValidationMessageFor(model => model.numTelefonico02, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--ADDRESS2-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.direccion02, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.direccion02, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese Dirección (opcional)" } })
+                                                                @Html.ValidationMessageFor(model => model.direccion02, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--VÍA-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.idVia, "idVia", htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.DropDownList("idVia", null as SelectList, "-- Seleccionar --", htmlAttributes: new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.idVia, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--NAMEVIA-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.nombreVia, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.nombreVia, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese Nombre de Vía" } })
+                                                                @Html.ValidationMessageFor(model => model.nombreVia, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--*************RECORD-2*************-->
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <!---h3 class="card-title">Básica 2</h3-->
+                                                    <div class="card-body">
+
+                                                        <!--NUMBERVIA-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.numVia, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.numVia, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese N° de Vía" } })
+                                                                @Html.ValidationMessageFor(model => model.numVia, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--ZONE-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.idZona, "Zona:", htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.DropDownList("idZona", null as SelectList, "-- Seleccionar --", htmlAttributes: new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.idZona, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--NAMEZONE-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.nombreZona, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.nombreZona, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese Nombre de Zona" } })
+                                                                @Html.ValidationMessageFor(model => model.nombreZona, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!--DEAD-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.difunto, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                <div class="checkbox">
+                                                                    @Html.EditorFor(model => model.difunto)
+                                                                    @Html.ValidationMessageFor(model => model.difunto, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!--DATEDEAD-->
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.fecDefuncion, htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            <div class="col-md-8">
+                                                                @Html.EditorFor(model => model.fecDefuncion, new { htmlAttributes = new { @class = "form-control datetime", @type = "text", @placeholder = "Seleccione Fecha" } })
+                                                                @Html.ValidationMessageFor(model => model.fecDefuncion, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @Html.Partial("~/Views/Persona/_ConfirmatonTabsCreate.cshtml")
+                                        </div>
+                                    }
+                                </div>
+
+                                <!--INFPATIENT-->
+                                <div role="tabpanel" class="tab-pane fade" id="tab3" aria-labelledby="dropdown1-tab">
+                                    <!--div class="row">
+                                        <div class="col-lg-12"-->
+                                    <div class="card" style="text-align: center;">
+                                        @*@Html.Partial("~/Views/RHUt09_persona/RHUt07_paciente/_Create.cshtml")*@
+                                    </div>
+                                    <!---/div>
+                                    </!div-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--***FINCITA***-->
+            <!--*******************************************FIN***********************************-->
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel" style="text-align:center;">... Cargar Imagen ...</h4>
+            </div>
+            <div class="modal-body">
+                <br />
+                @Html.Partial("~/Views/Persona/Imagen/_UploadImage.cshtml")
+                <br />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" iddi="btnClose">Close</button>
+                <button type="button" class="btn btn-primary" id="btnCargar" data-mostrar="">Cargar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        //MOSTRAR MODAL FOTO
+        $('.viewModalPhoto').click(function () {
+            var idPersona = $(this).attr("data-id");
+            $("#btnCargar").attr("data-mostrar", idPersona);
+            $("#myModal").modal();
+        });
+
+        //CARGAR PHOTO EN INPUT_PATHFOTO
+        $("#btnCargar").click(function () {
+            var urlImg = $('#imgSalida').attr("src");
+            $("#pathFoto").val(urlImg+"");
+            //console.log(urlImg);
+            $("#btnClose").click();
+        });
+    </script>
+}
+
+<script src="~/Scripts/jq/jquery-3.1.1.min.js"></script>
+
+@**SCRIPT REGION*@
+<script id="idRegion">
+    $(document).ready(function () {
+        $('#idRegion').change(function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetProvincia")',
+                data: { idRegion: $("#idRegion").val() },
+                success: function (data) {
+                    if (data != null) {
+                        $("#idProvincia").attr("disabled", false)
+                        $("#idProvincia2").attr("disabled", false)
+                        $("#idProvincia").empty();
+                        $("#idProvincia2").empty();
+                        $("#idProvincia").append('<option Value="' + 0 + '">' + "-- Seleccionar --" + '</option>')
+                        $("#idProvincia2").append('<option Value="' + 0 + '">' + "-- Seleccionar --" + '</option>')
+                        $.each(data, function (i) {
+                            $("#idProvincia").append('<option Value="' + data[i].Value + '">' + data[i].Text + '</option>')
+                            $("#idProvincia2").append('<option Value="' + data[i].Value + '">' + data[i].Text + '</option>')
+                        });
+                    } else {
+                        $("#idProvincia").attr("disabled", true)
+                        $("#idProvincia2").attr("disabled", true)
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+@**SCRIPT PROVINCIA*@
+<script id="idProvincia">
+    $(document).ready(function () {
+        $('#idProvincia').change(function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetDistrito")',
+                data: { idProvincia: $("#idProvincia").val() },
+                success: function (data) {
+                    if (data != null) {
+                        $("#idDistrito").attr("disabled", false)
+                        $("#idDistrito2").attr("disabled", false)
+                        $("#idDistrito").empty();
+                        $("#idDistrito2").empty();
+                        $("#idDistrito").append('<option Value="' + 0 + '">' + "-- Seleccionar --" + '</option>')
+                        $("#idDistrito2").append('<option Value="' + 0 + '">' + "-- Seleccionar --" + '</option>')
+                        $.each(data, function (i) {
+                            $("#idDistrito").append('<option Value="' + data[i].Value + '">' + data[i].Text + '</option>')
+                            $("#idDistrito2").append('<option Value="' + data[i].Value + '">' + data[i].Text + '</option>')
+
+                        });
+                    } else {
+                        $("#idProvincia").attr("disabled", true)
+                        $("#idProvincia2").attr("disabled", true)
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+@**SCRIPT REGISTAR PERSONA*@
+<script id="idPersona">
+
+    //---------------------CAMBIAR DE TAB----------------------
+    $("#btn_siguiente").click(function () {
+        $("#btn_validar").click();
+    });
+
+    function siguiente() {
+	    $("#tipoPersoneria2").val($("#tipoPersoneria").val()); 
+        $("#idPersona2").val($("#idPersona").val());
+        $("#nombrePersona2").val($("#nombrePersona").val());
+        $("#apellidoPaterno2").val($("#apellidoPaterno").val());
+        $("#apellidoMaterno2").val($("#apellidoMaterno").val());
+        $("#numDocIdentidad2").val($("#numDocIdentidad").val());
+        $("#razonSocial2").val($("#razonSocial").val());
+        $("#fecNacimiento2").val($("#fecNacimiento").val());
+        $("#nombreVia2").val($("#nombreVia").val());
+        $("#numVia2").val($("#numVia").val());
+        $("#nombreZona2").val($("#nombreZona").val());
+        $("#direccion012").val($("#direccion01").val());
+        $("#direccion022").val($("#direccion02").val());
+        $("#numTelefonico012").val($("#numTelefonico01").val());
+        $("#numTelefonico022").val($("#numTelefonico02").val());
+        $("#email012").val($("#email01").val());
+        $("#email022").val($("#email02").val());
+        $("#sexo2").val($("#sexo").val());
+        $("#difunto2").val($("#difunto").val());
+        $("#fecDefuncion2").val($("#fecDefuncion").val());
+        $("#fecEliminacion2").val($("#fecEliminacion").val());
+        $("#pathFoto2").val($("#pathFoto").val());
+        $("#fecRegistro2").val($("#fecRegistro").val());
+        $("#fecModificacion2").val($("#fecModificacion").val());
+        $("#idUsuario2").val($("#idUsuario").val());
+        $("#idUsuarioModificar2").val($("#idUsuarioModificar").val());
+        $("#idVia2").val($("#idVia").val());
+        $("#idZona2").val($("#idZona").val());
+        $("#idTipoDocIdentidad2").val($("#idTipoDocIdentidad").val());
+        $("#idDistrito2").val($("#idDistrito").val());
+        $("#idEstadoCivil2").val($("#idEstadoCivil").val());
+        //ADITIONAL
+        $("#idRegion2").val($("#idRegion").val());
+        $("#idProvincia2").val($("#idProvincia").val());
+
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    function agregarPersona() {
+        var objrHUt09_persona = new Object();
+        objrHUt09_persona.idPersona1 = $("#idPersona").val();
+        objrHUt09_persona.nombrePersona = $("#nombrePersona").val();
+        objrHUt09_persona.apellidoPaterno = $("#apellidoPaterno").val();
+        objrHUt09_persona.apellidoMaterno = $("#apellidoMaterno").val();
+        objrHUt09_persona.numDocIdentidad = $("#numDocIdentidad").val();
+        objrHUt09_persona.razonSocial = $("#razonSocial").val();
+        objrHUt09_persona.fecNacimiento = $("#fecNacimiento").val();
+        objrHUt09_persona.nombreVia = $("#nombreVia").val();
+        objrHUt09_persona.numVia = $("#numVia").val();
+        objrHUt09_persona.nombreZona = $("#nombreZona").val();
+        objrHUt09_persona.direccion01 = $("#direccion01").val();
+        objrHUt09_persona.direccion02 = $("#direccion02").val();
+        objrHUt09_persona.numTelefonico01 = $("#numTelefonico01").val();
+        objrHUt09_persona.numTelefonico02 = $("#numTelefonico02").val();
+        objrHUt09_persona.email01 = $("#email01").val();
+        objrHUt09_persona.email02 = $("#email02").val();
+        objrHUt09_persona.sexo = $("#sexo").val();
+        objrHUt09_persona.difunto = $("#difunto").val();
+        objrHUt09_persona.fecDefuncion = $("#fecDefuncion").val();
+        objrHUt09_persona.pathFoto = $("#pathFoto").val();
+        objrHUt09_persona.fecRegistro = $("#fecRegistro").val();
+        objrHUt09_persona.fecModificacion = $("#fecModificacion").val();
+        objrHUt09_persona.fecEliminacion = $("#fecEliminacion").val();
+        objrHUt09_persona.idUsuario = $("#idUsuario").val();
+        objrHUt09_persona.idUsuarioModificar = $("#idUsuarioModificar").val();
+        objrHUt09_persona.idVia = $("#idVia").val();
+        objrHUt09_persona.idZona = $("#idZona").val();
+        objrHUt09_persona.idTipoDocIdentidad = $("#idTipoDocIdentidad").val();
+        objrHUt09_persona.idDistrito = $("#idDistrito").val();
+        objrHUt09_persona.idEstadoCivil = $("#idEstadoCivil").val();
+
+        var objPersona = objrHUt09_persona;
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Create")',
+            data: objPersona,success: function (d) {
+                if (d=="1")
+                    alert('Has registrado correctamente !!');
+                else if(d!=null) {
+                    ErrorPersona(d);
+                } else {
+                    ErrorPersona(objrHUt09_persona);
+                    alert(d.ex);
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Error!!');
+            }
+        });
+    };
+
+    function ErrorPersona(objrHUt09_persona) {
+
+        $("#idPersona").val(objrHUt09_persona.idPersona);
+        $("#nombrePersona").val(objrHUt09_persona.nombrePersona);
+        $("#apellidoPaterno").val(objrHUt09_persona.apellidoPaterno);
+        $("#apellidoMaterno").val(objrHUt09_persona.apellidoMaterno);
+        $("#numDocIdentidad").val(objrHUt09_persona.numDocIdentidad);
+        $("#razonSocial").val(objrHUt09_persona.razonSocial);
+        $("#fecNacimiento").val(objrHUt09_persona.fecNacimiento);
+        $("#nombreVia").val(objrHUt09_persona.nombreVia);
+        $("#numVia").val(objrHUt09_persona.numVia);
+        $("#nombreZona").val(objrHUt09_persona.nombreZona);
+        $("#direccion01").val(objrHUt09_persona.direccion01);
+        $("#direccion02").val(objrHUt09_persona.direccion02);
+        $("#numTelefonico01").val(objrHUt09_persona.numTelefonico01);
+        $("#numTelefonico02").val(objrHUt09_persona.numTelefonico02);
+        $("#email01").val(objrHUt09_persona.email01);
+        $("#email02").val(objrHUt09_persona.email02);
+        $("#sexo").val(objrHUt09_persona.sexo);
+        $("#difunto").val(objrHUt09_persona.difunto);
+        $("#fecDefuncion").val(objrHUt09_persona.fecDefuncion);
+        $("#pathFoto").val(objrHUt09_persona.pathFoto);
+        $("#fecRegistro").val(objrHUt09_persona.fecRegistro);
+        $("#fecModificacion").val(objrHUt09_persona.fecModificacion);
+        $("#fecEliminacion").val(objrHUt09_persona.fecEliminacion);
+        $("#idUsuario").val(objrHUt09_persona.idUsuario);
+        $("#idUsuarioModificar").val(objrHUt09_persona.idUsuarioModificar);
+        $("#idVia").val(objrHUt09_persona.idVia);
+        $("#idZona").val(objrHUt09_persona.idVia);
+        $("#idTipoDocIdentidad").val(objrHUt09_persona.idTipoDocIdentidad);
+        $("#idDistrito").val(objrHUt09_persona.idDistrito);
+        $("#idEstadoCivil").val(objrHUt09_persona.idEstadoCivil);
+    }
+
+</script>
+
+
+<script id="INICIALIZAR">
+
+    $('#idTab1').click(function () {
+        $('#idProvincia').attr("disabled", false);
+        $('#idDistrito').attr("disabled", false);
+        $('#validar').val("1");
+        $("#btn_validar").hide();
+        $("#btn_siguiente").show();
+    })
+
+    $(document).ready(function () {
+        $('#btn_siguiente').hide();
+        $('#idRegistrar').hide();
+        $("#idTab2").hide();
+        var validar = $('#validar').val();
+        var lengthIdRegion = $('#idRegion').length;
+        if(lengthIdRegion>0){
+            //$("#idProvincia").attr("disabled", false)
+        }
+        if (validar == "0") {
+            $('#numDocIdentidad').attr("disabled", false);
+            $('#idProvincia').attr("disabled", false);
+            $('#idDistrito').attr("disabled", false);
+            $('#validar').val("1");
+        }
+        if(validar=="1"){
+            $('#idRegistrar').hide();
+            $("#idTab2").hide();
+            $("#btn_validar").click();
+        }
+        else if (validar == "2") {
+                $("#idTab2").show();
+                $("#idRegistrar").show();
+                $('#idRegistrar').show();
+                $("#idTab2").show();
+                siguiente();
+                $('#numDocIdentidad').attr("disabled", false);
+                cambiarTab();
+        }
+    })
+
+
+    //FUNCION VALIDAR UBICACION
+    function valUbicacion() {
+        var id_dpto = $("#idRegion").val();
+        var id_prov = $("#idProvincia").val();
+        var id_dist = $("#idDistrito").val();
+        var mensajebody = "";
+        var mensajeheader = ":C";
+        var icono = "";
+        if (id_dpto === undefined || id_dpto == "" || id_dpto == "0" || id_dpto == null) {
+            console.log("Variable undefined Departamento");
+            mensajebody = "Agregar un Departmaneto ";
+            icono = "../../Content/img/bad.png";
+            cambiarStilo("idRegion", 1);
+        }
+        else {
+            cambiarStilo("idRegion", 0);
+            if (id_prov === undefined || id_prov == "" || id_prov == "0" || id_prov == null) {
+                console.log("Variable undefined Provincia");
+                mensajebody = "Agregar una Provincia";
+                icono = "../../Content/img/bad.png";
+                cambiarStilo("idProvincia", 1);
+            }
+            else {
+                cambiarStilo("idProvincia", 0);
+                if (id_dist === undefined || id_dist == "" || id_dist == "0" || id_dist == null) {
+                    mensajebody = "Agregar una Distrito";
+                    icono = "../../Content/img/bad.png";
+                    cambiarStilo("idDistrito", 1);
+                }
+                else {
+                    cambiarStilo("idDistrito", 0);
+                    var valGeneral = 1;
+                    //VALIDACIÓN GENERAL
+                    if (valGeneral == 1) {
+                        icono = "../../Content/img/good.png";
+                    } else {
+                        mensajebody = "Datos completados satisfactoriamente..!"
+                        mensajeheader = ":D";
+                        icono = "../../Content/img/good.png";
+                        cambiarTab(1);
+                    }
+                }
+            }
+        }
+
+        Push.create(mensajeheader, {
+            body: mensajebody,
+            icon: icono,
+            timeout: 3000,
+            onClick: function () {
+                window.focus();
+                this.close();
+            }
+        });
+
+    }
+
+    function cambiarStilo(componente, estado) {
+        if (estado == 1) {
+            $("#" + componente).addClass("btn btn-danger")
+            //contenido_textarea = $("#"+componente).val();
+            //$("#" + componente).css("background-color", "red");
+            //$("#" + componente).class("btn btn-danger");
+            //$("#" + componente).className= "btn btn-danger";
+        } else {
+            $("#" + componente).removeClass("btn btn-danger")
+            //$("#" + componente).class("");
+            //$("#" + componente).toggleClass("btn btn-danger");
+            //$("#"+componente).css({"color":"#ff0000","font-weight":"bold","font-size":"xx-large","font-style":"italic","font-family":"cursive","font":"bold"});
+        }
+    }
+
+</script>
+
+<script id="ValidarTipoDocSelect">
+    $('#idTipoDocIdentidad').on('change', function () {
+        //alert(this.value);
+        var idMaxLengthDoc = $("#idTipoDocIdentidad").val();
+        if(idMaxLengthDoc==1){
+            //DNI
+            $("#numDocIdentidad").attr("maxlength", 8)
+            $("#numDocIdentidad").val("")
+            $("#numDocIdentidad").attr("disabled", false)
+            $("#btn_siguiente").hide();
+            $("#btn_validar").show();
+            $("#idTab2").hide();
+            $('#validar').val("1");
+            $('#btn_buscar').addClass("disabled");
+            $("#tipoPersoneria").val("N");
+        } else if (idMaxLengthDoc == 2) {
+            //RUC / CARNET DE EXTRANJERIA
+            $("#numDocIdentidad").attr("maxlength", 11)
+            $("#numDocIdentidad").val("")
+            $("#numDocIdentidad").attr("disabled", false)
+            $("#btn_siguiente").hide();
+            $("#btn_validar").show();
+            $("#idTab2").hide();
+            $('#btn_buscar').addClass("disabled");
+            $('#validar').val("1");
+            $("#tipoPersoneria").val("N");
+        } else if (idMaxLengthDoc == 3) {
+            //REG. UNICO DE CONTRIBUYENTES
+            $("#numDocIdentidad").attr("maxlength", 11)
+            $("#numDocIdentidad").val("")
+            $("#numDocIdentidad").attr("disabled", false)
+            $("#btn_siguiente").hide();
+            $("#btn_validar").show();
+            $("#idTab2").hide();
+            $('#btn_buscar').addClass("disabled");
+            $('#validar').val("1");
+            $("#tipoPersoneria").val("J");
+
+        } else if (idMaxLengthDoc == 4) {
+            //PASAPORTE
+            $("#numDocIdentidad").attr("maxlength", 12)
+            $("#numDocIdentidad").val("")
+            $("#numDocIdentidad").attr("disabled", false)
+            $("#btn_siguiente").hide();
+            $("#btn_validar").show();
+            $('#btn_buscar').addClass("disabled")
+            $("#idTab2").hide();
+            $('#validar').val("1");
+            $("#tipoPersoneria").val("N");
+        }
+        //else if (idMaxLengthDoc == 5) {
+        //    //PART. DE NACIMIENTO-IDENTIDAD
+        //    $("#numDocIdentidad").attr("maxlength", 15)
+        //    $("#numDocIdentidad").val("")
+        //    $("#numDocIdentidad").attr("disabled", false)
+        //    $("#btn_siguiente").hide();
+        //    $("#btn_validar").show();
+        //    $('#btn_buscar').addClass("disabled")
+        //    $("#idTab2").hide();
+        //    $('#validar').val("1");
+        //    $("#tipoPersoneria").val("N")
+        //}
+        else {
+            //OTROS
+            $("#numDocIdentidad").attr("maxlength", 15)
+            $("#numDocIdentidad").val("")
+            $("#numDocIdentidad").attr("disabled", false)
+            $("#btn_siguiente").hide();
+            $("#btn_validar").show();
+            $("#idTab2").hide();
+            $('#btn_buscar').addClass("disabled");
+            $('#validar').val("1");
+            $("#tipoPersoneria").val("N");
+        } 
+    })
+
+
+    //VALIDAR NUMERO DOC LEGHT
+    $('#numDocIdentidad').on('change', function () {
+        var i = $('#numDocIdentidad').length;
+        if (i > 0) {
+            $('#btn_buscar').removeClass("disabled")
+            $('#btn_validar').addClass("disabled")
+
+        } else {
+            $('#btn_buscar').addClass("disabled")
+            $('#btn_validar').addClass("disabled")
+        }
+    })
+
+</script>
+
+
+<script id="ValidationsPersona" type="text/javascript">
+
+    //BOTON SIGUIENTE
+    $("#btn_buscar").click(function () {
+        var idTipoDocIdentidad = $("#idTipoDocIdentidad").val();
+        var numDocIdentidad = $("#numDocIdentidad").val();
+        if ((numDocIdentidad === undefined || numDocIdentidad == "" || numDocIdentidad == "0" || numDocIdentidad == null) || (idTipoDocIdentidad === undefined || idTipoDocIdentidad == null)) {
+            //funcPush("Error", "Se requiere DNI","../../Content/img/bad.png", 3000)
+        } else {
+
+            if (idTipoDocIdentidad == 1) {
+                //VALIDAR DNI
+                validarDni(numDocIdentidad, idTipoDocIdentidad);
+                //$('.nav-tabs li:eq(1) a').tab('show')
+                //(ver != null) ? $('.nav-tabs li:eq(1) a').tab('show') : "Error";
+            }
+            else if (idTipoDocIdentidad == 2) {
+                //VALIDAR RUC
+                validarRuc(numDocIdentidad, idTipoDocIdentidad);
+                //var x = (ver!=null) ? "" : $('.nav-tabs li:eq(1) a').tab('show');
+                //(ver != null) ? $('.nav-tabs li:eq(1) a').tab('show') : "Error";
+
+            }
+            else {
+                validarDoc(numDocIdentidad, idTipoDocIdentidad);
+                //$('.nav-tabs li:eq(1) a').tab('show')
+            }
+        }
+    });
+
+    //VALIDAR N°DOC
+    function validarDoc(numDocIdentidad , idTipoDocIdentidad) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("validarDoc")',
+            data: { numDocIdentidad: numDocIdentidad, idTipoDocIdentidad: idTipoDocIdentidad },
+            success: function (d) {
+                if (d == "1") {
+                    funcPush("Error...!", "El N° de documento ya existe.", "../../Content/img/bad.png", 3000);
+                }
+                else if (d == "0") {
+                    funcPush("Correcto...!", "Verificación válida", "../../Content/img/good.png", 3000);
+                    $("#btn_siguiente").show();
+                    $("#btn_validar").hide();
+                    $('#btn_buscar').addClass("disabled");
+                }
+                else {
+                    funcPush("Error...!", "Verificación inválida. " + d, "../../Content/img/bad.png", 3000);
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Error!!');
+            }
+        });
+    }
+
+
+    //VALIDAR DNI
+    function validarDni(numDocIdentidad, idTipoDocIdentidad) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("validarDni")',
+            data: { numDocIdentidad: numDocIdentidad, idTipoDocIdentidad: idTipoDocIdentidad },
+            success: function (d) {
+                if (d != null) {
+                    if(d=="1"){
+                        funcPush("Error...!", "El N° de documento ya existe.", "../../Content/img/bad.png", 3000);
+                    }else if(d=="0"){
+                        funcPush("Error...!", "Por favor inténtelo en unos segundos.", "../../Content/img/bad.png", 3000);
+                    }
+                    else {
+                        $("#numDocIdentidad").val(d.dni);
+                        $("#nombrePersona").val(d.nombres);
+                        $("#apellidoPaterno").val(d.apellido_paterno);
+                        $("#apellidoMaterno").val(d.apellido_materno);
+                        //$("#numDocIdentidad").val() = d.caracter_verificacion;
+                        funcPush("Correcto...!", "Verificación válida", "../../Content/img/good.png", 3000);
+                        $("#btn_siguiente").show();
+                        $("#btn_validar").hide();
+                        $('#btn_buscar').addClass("disabled");
+                    }
+                }
+                else {
+                    funcPush("Error...!", "Verificación inválida " + d, "../../Content/img/bad.png", 3000);
+                    //alert('No se encuentra Registrado' + d);
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Error!!');
+            }
+        });
+    }
+
+    //VALIDAR RUC
+    function validarRuc(numDocIdentidad, idTipoDocIdentidad) {
+        var respuesta;
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("validarRuc")',
+            data: { numDocIdentidad: numDocIdentidad, idTipoDocIdentidad : idTipoDocIdentidad},
+            success: function (d) {
+                if (d != null) {
+                    if (d == "1") {
+                        funcPush("Error...!", "El N° de documento ya existe.", "../../Content/img/bad.png", 3000);
+                    } else if (d == "0") {
+                        funcPush("Error...!", "Por favor inténtelo en unos segundos.", "../../Content/img/bad.png", 3000);
+                    }
+                    else {
+                        $("#numDocIdentidad").val(d.ruc);
+                        $("#razonSocial").val(d.razon_social);
+                        $("#direccion01").val(d.direccion);
+                        funcPush("Correcto...!", "Verificación válida", "../../Content/img/good.png", 3000);
+                        $("#btn_siguiente").show();
+                        $("#btn_validar").hide();
+                        $('#btn_buscar').addClass("disabled");
+                    }
+                }
+                else {
+                    funcPush("Error...!", "Verificación inválida" + d, "../../Content/img/bad.png", 3000);
+                    //alert('No se encuentra Registrado' + d);
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Error!!');
+            }
+        });
+    }
+
+
+
+</script>
+
+<div class="nav-tabs">
+
+</div>
+<script id="FunctionUtilitarios" type="text/javascript">
+
+    //PUSH
+    function funcPush(mensajeheader, mensajebody,icono,time) {
+        Push.create(mensajeheader, {
+            body: mensajebody,
+            icon: icono,
+            timeout: time,
+            onClick: function () {
+                window.focus();
+                this.close();
+            }
+        });
+    }
+
+    /// VALIDACIÓN PARA TEXTO
+    //SOLO TEXTO A MAYUSCUSLA
+    function coverTexto(e, a) {
+        var porId = document.getElementById(a).value;
+        console.log(porId);
+        var x = porId.toUpperCase();
+        console.log(x);
+        $("#" + a).val(x);
+    }
+
+    //SOLO A TEXTO
+    function soloLetras(e) {
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toString();
+        letras = " áéíóúabcdefghijklmnñopqrstuvwxyzÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ";//Se define todo el abecedario que se quiere que se muestre.
+        especiales = [8, 37, 39, 46, 6]; //Es la validación del KeyCodes, que teclas recibe el campo de texto.
+
+        tecla_especial = false
+        for (var i in especiales) {
+            if (key == especiales[i]) {
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+            alert('Tecla no aceptada');
+            return false;
+        }
+    }
+    //////////////////////////////////////////
+
+    //VALIDACIÓN PARA NUMEROS
+    //onkeypress = "return solonumeros(event)" , onpaste="return false"
+
+    //SOLO NUMEROS
+    function solonumeros(e) {
+        key = e.Keycode || e.which;
+        teclado = String.fromCharCode(key);
+        numeros = "0123456789";
+        especiales = "8-37-38-46";
+        teclado_especial = false;
+        for (var i in especiales) {
+            if (key == especiales[i]) {
+                teclado_especial = true;
+            }
+        }
+        if (numeros.indexOf(teclado) == -1 && !teclado_especial) {
+            return false;
+        }
+    }
+
+    function copyNumero(e) {
+        key = e.Keycode || e.which;
+        teclado = String.fromCharCode(key);
+        numeros = "0123456789";
+        especiales = "8-37-38-46";
+        teclado_especial = false;
+        for (var i in especiales) {
+            if (key == especiales[i]) {
+                teclado_especial = true;
+            }
+        }
+        if (numeros.indexOf(teclado) == -1 && !teclado_especial) {
+            return false;
+        }
+    }
+
+    //CAMBIAR TAB
+    function cambiarTab() {
+        //$('.nav-tabs a:last').tab('show')
+        $('.nav-tabs a[href="#tab2"]').tab('show')
+    }
+
+</script>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/Calendar/bootstrap-datepicker.min.js"></script>
+<script src="~/Scripts/Locales/bootstrap-datepicker.es.min.js"></script>
+<script type="text/javascript">
+    $('.datetime').datepicker({
+            language: "es",
+            format: "dd/mm/yyyy",
+            autoclose: true,
+            todayHighlight: true,
+    });
+</script>
+
+
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

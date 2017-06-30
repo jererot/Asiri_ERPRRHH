@@ -1,0 +1,132 @@
+﻿@model IEnumerable<common.Model.RHUt09_persona>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-title">
+                @Html.Partial("~/Views/Shared/_HeadpartialIndex.cshtml")
+            </div>
+            <hr />
+            <div class="card-body table-responsive">
+                <table class="table table-hover table-bordered " id="tablegeneral" style="text-align:center;">
+                    <thead style="color:#ffffff;background:#0094ff;">
+                        <tr>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.nombrePersona)*@
+                                Nombre
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.apellidoPaterno)*@
+                                Ape. Paterno
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.apellidoMaterno)*@
+                                Ape. Materno
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.numDocIdentidad)*@
+                                N° Documento
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.numTelefonico01)*@
+                                @*<span class="media-left media-icon" style=""><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-phone fa-stack-1x fa-inverse"></i></span></span>*@
+                                N° Teléfono
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.activo)*@
+                                Estado
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.fecRegistro)*@
+                                @*<span class="media-left media-icon" style=""><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-calendar fa-stack-1x fa-inverse"></i></span></span>*@
+                                Fec. Registro
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.RHUt05_estadoCivil.descEstadoCivil)*@
+                                Estado Civil
+                            </th>
+                            <th>
+                                Detalle
+                            </th>
+                            <th>
+                                Editar
+                            </th>
+                            <th>
+                                Eliminar
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nombrePersona)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.apellidoPaterno)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.apellidoMaterno)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.numDocIdentidad)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.numTelefonico01)
+                                </td>
+                                <td>
+                                    @*@Html.DisplayFor(modelItem => item.activo)*@
+                                    <div class="text-center">
+                                        @Html.DisplayFor(modelItem => item.activo)
+                                        @Helpers.CustomHelper.Estado(item.activo)
+                                    </div>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.fecRegistro)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RHUt05_estadoCivil.descEstadoCivil)
+                                </td>
+                                <td>
+                                    <div class="col-md-12 text-center">
+                                        <a class="btn btn-default btn-flat" href="@Url.Action("Details", "Persona", new { id = item.idPersona})"><i class="fa fa-lg fa-plus"></i></a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-md-12 text-center">
+                                        <a class="btn btn-warning btn-flat" href="@Url.Action("Edit","Persona",new { id = item.idPersona})"><i class="fa fa-lg fa-edit"></i></a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="text-center">
+                                        @Helpers.CustomHelper.Eliminar(item.activo, Url.Action("Estado", "Persona") + "", item.idPersona)
+                                    </div>
+                                </td>
+                                @*<td>
+                                        <div class="col-md-12 text-center">
+                                            <a class="btn btn-danger btn-flat" href="@Url.Action("Delete","Persona", new { id = item.idPersona})"><i class="fa fa-lg fa-trash"></i></a>
+                                        </div>
+
+                                        @*Html.ActionLink("Edit", "Edit", new { id = item.idPersona , @class = "btn btn-warning btn-flat" }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.idPersona }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.idPersona })
+                                    </td>*@
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jq/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/DataTables/tableGeneral.js"></script>
+
+
+
