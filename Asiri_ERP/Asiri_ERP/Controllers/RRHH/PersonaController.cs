@@ -44,13 +44,14 @@ namespace Asiri_ERP.Controllers.RRHH
         {
             try
             {
-                ViewBag.idEstadoCivil = new SelectList(db.RHUt05_estadoCivil, "idEstadoCivil", "descEstadoCivil");
-                //ViewBag.idTipoDocIdentidad = new SelectList(db.RHUt12_tipoDocIdentidad, "idTipoDocIdentidad", "descTipoDocIdentidad");
+                //ViewBag.idEstadoCivil = new SelectList(db.RHUt05_estadoCivil, "idEstadoCivil", "descEstadoCivil");
+                //ViewData["idEstadoCivil"] = new SelectList(new SelectList(db.RHUt05_estadoCivil, "idEstadoCivil", "descEstadoCivil"), "Value", "Text");
 
+                ViewData["idEstadoCivil"] = new SelectList(db.RHUt05_estadoCivil, "idEstadoCivil", "descEstadoCivil");
+                //ViewBag.idTipoDocIdentidad = new SelectList(db.RHUt12_tipoDocIdentidad, "idTipoDocIdentidad", "descTipoDocIdentidad");
                 //IList<SelectListItem> lstItems = new List<SelectListItem>();
                 //lstItems.Add(new SelectListItem { Value = "1", Text = "Yes, I am a Human" });
                 //lstItems.Add(new SelectListItem { Value = "2", Text = "No, I am a Robot" });
-
                 var idTipoDocIdentidad = new SelectList(db.RHUt12_tipoDocIdentidad, "idTipoDocIdentidad", "descTipoDocIdentidad");
                 ViewData["idTipoDocIdentidad"] = new SelectList(idTipoDocIdentidad, "Value", "Text");
 
@@ -148,24 +149,21 @@ namespace Asiri_ERP.Controllers.RRHH
                         if (idRegionFind1 > 0)
                         {
                             ViewBag.idRegion = new SelectList(db.UBIt03_region, "idRegion", "nombreRegion", idRegion);
+
+                            ViewBag.idProvincia = new SelectList(db.UBIt02_provincia.Where(p => p.idRegion == idRegionFind1), "idProvincia", "nombreProvincia");
                             if (idProvinciaFind1 > 0)
                             {
                                 ViewBag.idProvincia = new SelectList(db.UBIt02_provincia, "idProvincia", "nombreProvincia", idProvinciaFind1);
+
+                                ViewBag.idDistrito = new SelectList(db.UBIt01_distrito.Where(p => p.idProvincia == idProvinciaFind1), "idDistrito", "nombreDistrito");
                                 if (idDistrito1 > 0)
                                 {
                                     List<SelectListItem> list_dists = new List<SelectListItem>();
                                     ViewBag.idDistrito = new SelectList(db.UBIt01_distrito, "idDistrito", "nombreDistrito", idDistrito1); ;
                                 }
-                                else
-                                {
-                                    List<SelectListItem> list_dists = new List<SelectListItem>();
-                                    ViewBag.idDistrito = list_dists;
-                                }
                             }
                             else
                             {
-                                List<SelectListItem> provs = new List<SelectListItem>();
-                                ViewBag.idProvincia = provs;
                                 List<SelectListItem> list_dists = new List<SelectListItem>();
                                 ViewBag.idDistrito = list_dists;
                             }
@@ -191,7 +189,7 @@ namespace Asiri_ERP.Controllers.RRHH
                         return View(objPersona);
                     }
                 }
-
+         
                 //WHEN THE MODEL ISN'T VALID
                 if (validar == "1")
                 {
@@ -207,9 +205,13 @@ namespace Asiri_ERP.Controllers.RRHH
                 if (idRegionFind > 0)
                 {
                     ViewBag.idRegion = new SelectList(db.UBIt03_region, "idRegion", "nombreRegion", idRegion);
+
+                    ViewBag.idProvincia = new SelectList(db.UBIt02_provincia.Where(p => p.idRegion == idRegionFind), "idProvincia", "nombreProvincia");
                     if (idProvinciaFind > 0)
                     {
                         ViewBag.idProvincia = new SelectList(db.UBIt02_provincia, "idProvincia", "nombreProvincia", idProvinciaFind);
+
+                        ViewBag.idDistrito = new SelectList(db.UBIt01_distrito.Where(p => p.idProvincia == idProvinciaFind), "idDistrito", "nombreDistrito");
                         if (idDistrito > 0)
                         {
                             List<SelectListItem> list_dists = new List<SelectListItem>();

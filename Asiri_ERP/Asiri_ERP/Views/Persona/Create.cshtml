@@ -101,18 +101,15 @@
 
                                                         <!--DOC-->
                                                         <div class="form-group">
-                                                            @Html.LabelFor(model => model.idTipoDocIdentidad, "Tipo Documento:", htmlAttributes: new { @class = "control-label col-md-3" })
+                                                            @Html.LabelFor(model => model.idTipoDocIdentidad, htmlAttributes: new { @class = "control-label col-md-3" })
                                                             <div class="col-md-8">
                                                                 @*@Html.DropDownList("idTipoDocIdentidad", null as SelectList, "-- Seleccionar --", htmlAttributes: new { @class = "form-control", required="required"})*@                                                                
-                                                                @Html.DropDownListFor(model => model.idTipoDocIdentidad, new SelectList((System.Collections.IEnumerable)ViewData["idTipoDocIdentidad"],"Value","Text"), "--Seleccionar--")
+                                                                @Html.DropDownListFor(model => model.idTipoDocIdentidad, new SelectList((System.Collections.IEnumerable)ViewData["idTipoDocIdentidad"],"Value","Text"), "--Seleccionar--", htmlAttributes: new { @class = "form-control"})
                                                                 @*@Html.ValidationMessage("El tipo de documento es requerido.", htmlAttributes: new {@class="Error" ,id="error" })*@
                                                                 @Html.ValidationMessageFor(model => model.idTipoDocIdentidad, "", new { @class = "text-danger" })
 
                                                              </div>
                                                         </div>
-                                                        <script>
-                                                            $("#error").html("El campo es requerido")
-                                                        </script>
 
                                                         <!--NUMBERDOC-->
                                                         <div class="form-group">
@@ -177,7 +174,8 @@
                                                         <div class="form-group">
                                                             @Html.LabelFor(model => model.fecNacimiento, htmlAttributes: new { @class = "control-label col-md-3" })
                                                             <div class="col-md-8">
-                                                                @Html.EditorFor(model => model.fecNacimiento, new { htmlAttributes = new { @class = "form-control datetime ", @id = "fecNacimiento", @style = "z-index: 999", @type = "text", @placeholder = "Seleccione Fecha" } })
+                                                                @Html.EditorFor(model => model.fecNacimiento, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @class = "form-control datetime ", @id = "fecNacimiento", @style = "z-index: 999", @type = "text", @placeholder = "Seleccione Fecha" } })
+                                                                @*@Html.EditorForModel(Model.fecNacimiento,ViewBag[""],null)*@
                                                                 @Html.ValidationMessageFor(model => model.fecNacimiento, "", new { @class = "text-danger" })
                                                             </div>
                                                         </div>
@@ -377,11 +375,18 @@
                                                         <div class="form-group">
                                                             @Html.LabelFor(model => model.difunto, htmlAttributes: new { @class = "control-label col-md-3" })
                                                             <div class="col-md-8">
-                                                                <div class="checkbox">
-                                                                    @Html.EditorFor(model => model.difunto)
+                                                                <div class="animated-checkbox">
+                                                                    <label>
+                                                                        <input id="difunto" name="difunto" type="checkbox" disabled>
+                                                                        <span class="label-text">Difunto</span>
+                                                                    </label>
                                                                     @Html.ValidationMessageFor(model => model.difunto, "", new { @class = "text-danger" })
                                                                 </div>
-                                                            </div>
+                                                                @*<div class="checkbox">
+                                                                    @Html.EditorFor(model => model.difunto)   
+                                                                    @Html.ValidationMessageFor(model => model.difunto, "", new { @class = "text-danger" })
+                                                                </div>*@              
+                                                            </div>                                                                                                                     
                                                         </div>
 
                                                         <!--DATEDEAD-->
@@ -462,61 +467,57 @@
 
 @**SCRIPT REGION*@
 <script id="idRegion">
-    $(document).ready(function () {
-        $('#idRegion').change(function () {
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("GetProvincia")',
-                data: { idRegion: $("#idRegion").val() },
-                success: function (data) {
-                    if (data != null) {
-                        $("#idProvincia").attr("disabled", false)
-                        $("#idProvincia2").attr("disabled", false)
-                        $("#idProvincia").empty();
-                        $("#idProvincia2").empty();
-                        $("#idProvincia").append('<option Value="' + 0 + '">' + "-- Seleccionar --" + '</option>')
-                        $("#idProvincia2").append('<option Value="' + 0 + '">' + "-- Seleccionar --" + '</option>')
-                        $.each(data, function (i) {
-                            $("#idProvincia").append('<option Value="' + data[i].Value + '">' + data[i].Text + '</option>')
-                            $("#idProvincia2").append('<option Value="' + data[i].Value + '">' + data[i].Text + '</option>')
-                        });
-                    } else {
-                        $("#idProvincia").attr("disabled", true)
-                        $("#idProvincia2").attr("disabled", true)
-                    }
+    $('#idRegion').change(function () {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetProvincia")',
+            data: { idRegion: $("#idRegion").val() },
+            success: function (data) {
+                if (data != null) {
+                    $("#idProvincia").attr("disabled", false)
+                    $("#idProvincia2").attr("disabled", false)
+                    $("#idProvincia").empty();
+                    $("#idProvincia2").empty();
+                    $("#idProvincia").append('<option Value="' + 0 + '">' + "-- Seleccionar --" + '</option>')
+                    $("#idProvincia2").append('<option Value="' + 0 + '">' + "-- Seleccionar --" + '</option>')
+                    $.each(data, function (i) {
+                        $("#idProvincia").append('<option Value="' + data[i].Value + '">' + data[i].Text + '</option>')
+                        $("#idProvincia2").append('<option Value="' + data[i].Value + '">' + data[i].Text + '</option>')
+                    });
+                } else {
+                    $("#idProvincia").attr("disabled", true)
+                    $("#idProvincia2").attr("disabled", true)
                 }
-            });
+            }
         });
-    });
+    }); 
 </script>
 
 @**SCRIPT PROVINCIA*@
 <script id="idProvincia">
-    $(document).ready(function () {
-        $('#idProvincia').change(function () {
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("GetDistrito")',
-                data: { idProvincia: $("#idProvincia").val() },
-                success: function (data) {
-                    if (data != null) {
-                        $("#idDistrito").attr("disabled", false)
-                        $("#idDistrito2").attr("disabled", false)
-                        $("#idDistrito").empty();
-                        $("#idDistrito2").empty();
-                        $("#idDistrito").append('<option Value="' + 0 + '">' + "-- Seleccionar --" + '</option>')
-                        $("#idDistrito2").append('<option Value="' + 0 + '">' + "-- Seleccionar --" + '</option>')
-                        $.each(data, function (i) {
-                            $("#idDistrito").append('<option Value="' + data[i].Value + '">' + data[i].Text + '</option>')
-                            $("#idDistrito2").append('<option Value="' + data[i].Value + '">' + data[i].Text + '</option>')
+    $('#idProvincia').change(function () {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetDistrito")',
+            data: { idProvincia: $("#idProvincia").val() },
+            success: function (data) {
+                if (data != null) {
+                    $("#idDistrito").attr("disabled", false)
+                    $("#idDistrito2").attr("disabled", false)
+                    $("#idDistrito").empty();
+                    $("#idDistrito2").empty();
+                    $("#idDistrito").append('<option Value="' + 0 + '">' + "-- Seleccionar --" + '</option>')
+                    $("#idDistrito2").append('<option Value="' + 0 + '">' + "-- Seleccionar --" + '</option>')
+                    $.each(data, function (i) {
+                        $("#idDistrito").append('<option Value="' + data[i].Value + '">' + data[i].Text + '</option>')
+                        $("#idDistrito2").append('<option Value="' + data[i].Value + '">' + data[i].Text + '</option>')
 
-                        });
-                    } else {
-                        $("#idProvincia").attr("disabled", true)
-                        $("#idProvincia2").attr("disabled", true)
-                    }
+                    });
+                } else {
+                    $("#idProvincia").attr("disabled", true)
+                    $("#idProvincia2").attr("disabled", true)
                 }
-            });
+            }
         });
     });
 </script>
@@ -526,139 +527,13 @@
 
 @**SCRIPT REGISTAR PERSONA*@
 <script id="idPersona">
-
     //---------------------CAMBIAR DE TAB----------------------
     $("#btn_siguiente").click(function () {
+        $('#numDocIdentidad').attr("disabled", false);
+        $('#idProvincia').attr("disabled", false);
+        $('#idDistrito').attr("disabled", false);
         $("#btn_validar").click();
     });
-
-    function siguiente() {
-	    $("#tipoPersoneria2").val($("#tipoPersoneria").val());
-        $("#idPersona2").val($("#idPersona").val());
-        $("#nombrePersona2").val($("#nombrePersona").val());
-        $("#apellidoPaterno2").val($("#apellidoPaterno").val());
-        $("#apellidoMaterno2").val($("#apellidoMaterno").val());
-        $("#numDocIdentidad2").val($("#numDocIdentidad").val());
-        $("#razonSocial2").val($("#razonSocial").val());
-        $("#fecNacimiento2").val($("#fecNacimiento").val());
-        $("#nombreVia2").val($("#nombreVia").val());
-        $("#numVia2").val($("#numVia").val());
-        $("#nombreZona2").val($("#nombreZona").val());
-        $("#direccion012").val($("#direccion01").val());
-        $("#direccion022").val($("#direccion02").val());
-        $("#numTelefonico012").val($("#numTelefonico01").val());
-        $("#numTelefonico022").val($("#numTelefonico02").val());
-        $("#email012").val($("#email01").val());
-        $("#email022").val($("#email02").val());
-        $("#sexo2").val($("#sexo").val());
-        $("#difunto2").val($("#difunto").val());
-        $("#fecDefuncion2").val($("#fecDefuncion").val());
-        $("#fecEliminacion2").val($("#fecEliminacion").val());
-        $("#pathFoto2").val($("#pathFoto").val());
-        $("#fecRegistro2").val($("#fecRegistro").val());
-        $("#fecModificacion2").val($("#fecModificacion").val());
-        $("#idUsuario2").val($("#idUsuario").val());
-        $("#idUsuarioModificar2").val($("#idUsuarioModificar").val());
-        $("#idVia2").val($("#idVia").val());
-        $("#idZona2").val($("#idZona").val());
-        $("#idTipoDocIdentidad2").val($("#idTipoDocIdentidad").val());
-        $("#idDistrito2").val($("#idDistrito").val());
-        $("#idEstadoCivil2").val($("#idEstadoCivil").val());
-        //ADITIONAL
-        $("#idRegion2").val($("#idRegion").val());
-        $("#idProvincia2").val($("#idProvincia").val());
-
-
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////
-
-    function agregarPersona() {
-        var objrHUt09_persona = new Object();
-        objrHUt09_persona.idPersona1 = $("#idPersona").val();
-        objrHUt09_persona.nombrePersona = $("#nombrePersona").val();
-        objrHUt09_persona.apellidoPaterno = $("#apellidoPaterno").val();
-        objrHUt09_persona.apellidoMaterno = $("#apellidoMaterno").val();
-        objrHUt09_persona.numDocIdentidad = $("#numDocIdentidad").val();
-        objrHUt09_persona.razonSocial = $("#razonSocial").val();
-        objrHUt09_persona.fecNacimiento = $("#fecNacimiento").val();
-        objrHUt09_persona.nombreVia = $("#nombreVia").val();
-        objrHUt09_persona.numVia = $("#numVia").val();
-        objrHUt09_persona.nombreZona = $("#nombreZona").val();
-        objrHUt09_persona.direccion01 = $("#direccion01").val();
-        objrHUt09_persona.direccion02 = $("#direccion02").val();
-        objrHUt09_persona.numTelefonico01 = $("#numTelefonico01").val();
-        objrHUt09_persona.numTelefonico02 = $("#numTelefonico02").val();
-        objrHUt09_persona.email01 = $("#email01").val();
-        objrHUt09_persona.email02 = $("#email02").val();
-        objrHUt09_persona.sexo = $("#sexo").val();
-        objrHUt09_persona.difunto = $("#difunto").val();
-        objrHUt09_persona.fecDefuncion = $("#fecDefuncion").val();
-        objrHUt09_persona.pathFoto = $("#pathFoto").val();
-        objrHUt09_persona.fecRegistro = $("#fecRegistro").val();
-        objrHUt09_persona.fecModificacion = $("#fecModificacion").val();
-        objrHUt09_persona.fecEliminacion = $("#fecEliminacion").val();
-        objrHUt09_persona.idUsuario = $("#idUsuario").val();
-        objrHUt09_persona.idUsuarioModificar = $("#idUsuarioModificar").val();
-        objrHUt09_persona.idVia = $("#idVia").val();
-        objrHUt09_persona.idZona = $("#idZona").val();
-        objrHUt09_persona.idTipoDocIdentidad = $("#idTipoDocIdentidad").val();
-        objrHUt09_persona.idDistrito = $("#idDistrito").val();
-        objrHUt09_persona.idEstadoCivil = $("#idEstadoCivil").val();
-
-        var objPersona = objrHUt09_persona;
-        $.ajax({
-            type: "POST",
-            url: '@Url.Action("Create")',
-            data: objPersona,success: function (d) {
-                if (d=="1")
-                    alert('Has registrado correctamente !!');
-                else if(d!=null) {
-                    ErrorPersona(d);
-                } else {
-                    ErrorPersona(objrHUt09_persona);
-                    alert(d.ex);
-                }
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                alert('Error!!');
-            }
-        });
-    };
-
-    function ErrorPersona(objrHUt09_persona) {
-
-        $("#idPersona").val(objrHUt09_persona.idPersona);
-        $("#nombrePersona").val(objrHUt09_persona.nombrePersona);
-        $("#apellidoPaterno").val(objrHUt09_persona.apellidoPaterno);
-        $("#apellidoMaterno").val(objrHUt09_persona.apellidoMaterno);
-        $("#numDocIdentidad").val(objrHUt09_persona.numDocIdentidad);
-        $("#razonSocial").val(objrHUt09_persona.razonSocial);
-        $("#fecNacimiento").val(objrHUt09_persona.fecNacimiento);
-        $("#nombreVia").val(objrHUt09_persona.nombreVia);
-        $("#numVia").val(objrHUt09_persona.numVia);
-        $("#nombreZona").val(objrHUt09_persona.nombreZona);
-        $("#direccion01").val(objrHUt09_persona.direccion01);
-        $("#direccion02").val(objrHUt09_persona.direccion02);
-        $("#numTelefonico01").val(objrHUt09_persona.numTelefonico01);
-        $("#numTelefonico02").val(objrHUt09_persona.numTelefonico02);
-        $("#email01").val(objrHUt09_persona.email01);
-        $("#email02").val(objrHUt09_persona.email02);
-        $("#sexo").val(objrHUt09_persona.sexo);
-        $("#difunto").val(objrHUt09_persona.difunto);
-        $("#fecDefuncion").val(objrHUt09_persona.fecDefuncion);
-        $("#pathFoto").val(objrHUt09_persona.pathFoto);
-        $("#fecRegistro").val(objrHUt09_persona.fecRegistro);
-        $("#fecModificacion").val(objrHUt09_persona.fecModificacion);
-        $("#fecEliminacion").val(objrHUt09_persona.fecEliminacion);
-        $("#idUsuario").val(objrHUt09_persona.idUsuario);
-        $("#idUsuarioModificar").val(objrHUt09_persona.idUsuarioModificar);
-        $("#idVia").val(objrHUt09_persona.idVia);
-        $("#idZona").val(objrHUt09_persona.idVia);
-        $("#idTipoDocIdentidad").val(objrHUt09_persona.idTipoDocIdentidad);
-        $("#idDistrito").val(objrHUt09_persona.idDistrito);
-        $("#idEstadoCivil").val(objrHUt09_persona.idEstadoCivil);
-    }
 
 </script>
 
@@ -666,11 +541,25 @@
 <script id="INICIALIZAR">
 
     $('#idTab1').click(function () {
-        $('#idProvincia').attr("disabled", false);
-        $('#idDistrito').attr("disabled", false);
+        var IdRegion = $('#idRegion').val();
+        if (IdRegion != "") {
+            $('#idProvincia').attr("disabled", false);
+            var IdProvincia = $('#idProvincia').val();
+            if (IdProvincia != "") {
+                $('#idDistrito').attr("disabled", false);
+            } else {
+                $('#idDistrito').attr("disabled", true);
+            }
+        }
+        else {
+            $('#idProvincia').attr("disabled", true);
+            $('#idDistrito').attr("disabled", true);
+        }
         $('#validar').val("1");
         $("#btn_validar").hide();
         $("#btn_siguiente").show();
+        $("#numDocIdentidad").attr("disabled", true);
+
     })
 
     $(document).ready(function () {
@@ -683,7 +572,7 @@
             //$("#idProvincia").attr("disabled", false)
         }
         if (validar == "0") {
-            $('#numDocIdentidad').attr("disabled", false);
+            $('#numDocIdentidad').attr("disabled", true);
             $('#idProvincia').attr("disabled", false);
             $('#idDistrito').attr("disabled", false);
             $('#validar').val("1");
@@ -698,8 +587,9 @@
                 $("#idRegistrar").show();
                 $('#idRegistrar').show();
                 $("#idTab2").show();
-                siguiente();
                 $('#numDocIdentidad').attr("disabled", false);
+                $('#idProvincia').attr("disabled", false);
+                $('#idDistrito').attr("disabled", false);
                 cambiarTab();
         }
     })
@@ -786,64 +676,56 @@
         if(idMaxLengthDoc==1){
             //DNI
             $("#numDocIdentidad").attr("maxlength", 8)
+            $("#numDocIdentidad").attr("minlength", 8)
             $("#numDocIdentidad").val("")
             $("#numDocIdentidad").attr("disabled", false)
+            $("#idTab2").hide();
+            $("#btn_buscar").addClass("disabled");
+            $("#validar").val("1");
+            $("#tipoPersoneria").val("N");
             $("#btn_siguiente").hide();
             $("#btn_validar").show();
-            $("#idTab2").hide();
-            $('#validar').val("1");
-            $('#btn_buscar').addClass("disabled");
-            $("#tipoPersoneria").val("N");
         } else if (idMaxLengthDoc == 2) {
-            //RUC / CARNET DE EXTRANJERIA
-            $("#numDocIdentidad").attr("maxlength", 11)
+            //CARNET DE EXTRANJERIA
+            $("#numDocIdentidad").attr("maxlength", 12)
+            $("#numDocIdentidad").attr("minlength", 12)
             $("#numDocIdentidad").val("")
             $("#numDocIdentidad").attr("disabled", false)
+            $("#idTab2").hide();
+            $("#btn_buscar").addClass("disabled");
+            $("#validar").val("1");
+            $("#tipoPersoneria").val("N");
             $("#btn_siguiente").hide();
             $("#btn_validar").show();
-            $("#idTab2").hide();
-            $('#btn_buscar').addClass("disabled");
-            $('#validar').val("1");
-            $("#tipoPersoneria").val("N");
         } else if (idMaxLengthDoc == 3) {
             //REG. UNICO DE CONTRIBUYENTES
             $("#numDocIdentidad").attr("maxlength", 11)
+            $("#numDocIdentidad").attr("minlength", 11)
             $("#numDocIdentidad").val("")
-            $("#numDocIdentidad").attr("disabled", false)
+            $("#numDocIdentidad").attr("disabled", false)            
+            $("#idTab2").hide();
+            $("#btn_buscar").addClass("disabled");
+            $("#validar").val("1");
+            $("#tipoPersoneria").val("J");
             $("#btn_siguiente").hide();
             $("#btn_validar").show();
-            $("#idTab2").hide();
-            $('#btn_buscar').addClass("disabled");
-            $('#validar').val("1");
-            $("#tipoPersoneria").val("J");
-
         } else if (idMaxLengthDoc == 4) {
             //PASAPORTE
             $("#numDocIdentidad").attr("maxlength", 12)
+            $("#numDocIdentidad").attr("minlength", 12)
             $("#numDocIdentidad").val("")
-            $("#numDocIdentidad").attr("disabled", false)
+            $("#numDocIdentidad").attr("disabled", false)            
+            $("#idTab2").hide();
+            $('#btn_buscar').addClass("disabled")
+            $("#validar").val("1");
+            $("#tipoPersoneria").val("N");
             $("#btn_siguiente").hide();
             $("#btn_validar").show();
-            $('#btn_buscar').addClass("disabled")
-            $("#idTab2").hide();
-            $('#validar').val("1");
-            $("#tipoPersoneria").val("N");
         }
-        //else if (idMaxLengthDoc == 5) {
-        //    //PART. DE NACIMIENTO-IDENTIDAD
-        //    $("#numDocIdentidad").attr("maxlength", 15)
-        //    $("#numDocIdentidad").val("")
-        //    $("#numDocIdentidad").attr("disabled", false)
-        //    $("#btn_siguiente").hide();
-        //    $("#btn_validar").show();
-        //    $('#btn_buscar').addClass("disabled")
-        //    $("#idTab2").hide();
-        //    $('#validar').val("1");
-        //    $("#tipoPersoneria").val("N")
-        //}
         else {
             //OTROS
             $("#numDocIdentidad").attr("maxlength", 15)
+            $("#numDocIdentidad").attr("minlength", 1)
             $("#numDocIdentidad").val("")
             $("#numDocIdentidad").attr("disabled", false)
             $("#btn_siguiente").hide();
@@ -855,19 +737,23 @@
         }
     })
 
-
-    //VALIDAR NUMERO DOC LEGHT
-    $('#numDocIdentidad').on('change', function () {
-        var i = $('#numDocIdentidad').length;
-        if (i > 0) {
+    
+    //VALIDAR NUMERO DOC LENGTH
+    $("#numDocIdentidad").keyup( function () {
+        var i = $('#numDocIdentidad').val();
+        i = i.length;
+        var j = $("#numDocIdentidad").attr("minlength");
+        if (i >= j) {
             $('#btn_buscar').removeClass("disabled")
             $('#btn_validar').addClass("disabled")
+            $('#btn_siguiente').addClass("disabled")
 
         } else {
             $('#btn_buscar').addClass("disabled")
             $('#btn_validar').addClass("disabled")
+            $('#btn_siguiente').addClass("disabled")
         }
-    })
+    });
 
 </script>
 
@@ -888,7 +774,7 @@
                 //$('.nav-tabs li:eq(1) a').tab('show')
                 //(ver != null) ? $('.nav-tabs li:eq(1) a').tab('show') : "Error";
             }
-            else if (idTipoDocIdentidad == 2) {
+            else if (idTipoDocIdentidad == 3) {
                 //VALIDAR RUC
                 validarRuc(numDocIdentidad, idTipoDocIdentidad);
                 //var x = (ver!=null) ? "" : $('.nav-tabs li:eq(1) a').tab('show');
@@ -917,8 +803,10 @@
                     $("#btn_siguiente").show();
                     $("#btn_validar").hide();
                     $('#btn_buscar').addClass("disabled");
+                    $('#btn_siguiente').removeClass("disabled")
                 }
                 else {
+
                     funcPush("Error...!", "Verificación inválida. " + d, "../../Content/img/bad.png", 3000);
                 }
             },
@@ -952,6 +840,7 @@
                         $("#btn_siguiente").show();
                         $("#btn_validar").hide();
                         $('#btn_buscar').addClass("disabled");
+                        $('#btn_siguiente').removeClass("disabled")
                     }
                 }
                 else {
@@ -987,6 +876,7 @@
                         $("#btn_siguiente").show();
                         $("#btn_validar").hide();
                         $('#btn_buscar').addClass("disabled");
+                        $('#btn_siguiente').removeClass("disabled")
                     }
                 }
                 else {
@@ -1074,6 +964,7 @@
         }
     }
 
+
     function copyNumero(e) {
         key = e.Keycode || e.which;
         teclado = String.fromCharCode(key);
@@ -1110,39 +1001,51 @@
 <script src="~/Scripts/Calendar/bootstrap-datepicker.min.js"></script>
 <script src="~/Scripts/Locales/bootstrap-datepicker.es.min.js"></script>
 <script type="text/javascript">
+    //var date = new Date("03-07-2017");
+    //var currentMonth = date.getMonth();
+    //var currentDate = date.getDate();
+    //var currentYear = date.getFullYear();
+    //$(".datetime").datepicker("option", "maxDate", new Date(currentDate, currentMonth, currentYear));
+
+    var todayDate = new Date().getDate();
+    var maxDate = getAdjustedDate(+30);
+    var minDate = getAdjustedDate(-10);
+    var tempDt = new Date();
+    console.log("today: " + tempDt.getDate());
+    console.log("minDate: " + minDate);
+    console.log("maxDate: " + maxDate);
+
     $('.datetime').datepicker({
             language: "es",
             format: "dd/mm/yyyy",
             autoclose: true,
             todayHighlight: true,
+            maxDate: maxDate,
+            minDate: minDate
     });
+
+    function getAdjustedDate (adjustment) {
+        var today = new Date();
+        today.setDate(today.getDate() + adjustment);
+
+        var dd = today.getDate() - 1;
+        var mm = today.getMonth() + 1; //January is 0!
+
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd
+        };
+
+        if (mm < 10) {
+            mm = '0' + mm
+        };
+
+        return mm + '/' + dd + '/' + yyyy;
+    };
+
 </script>
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 @*@Scripts.Render("~/bundles/jqueryval")*@
 
 
-<style type="text/css">
-    .error {
-  position: relative;
-  z-index: 1;
-  padding: 10px;
-  border-radius: 10px;
-  color: white;
-  width: 235px;
-  text-align: center; 
-  font-size: 12px;
-  background: RGB(194, 46, 79);
-}
-
-.error::after {
-    content: '';
-    border-bottom: 15px solid RGB(194, 46, 79);
-    border-right: 15px solid transparent;
-    border-left: 15px solid transparent;
-    position: absolute;
-    left: 45%;
-    top: -14px;
-}
-
-</style>
